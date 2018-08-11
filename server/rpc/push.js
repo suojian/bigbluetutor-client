@@ -52,6 +52,7 @@ const push = new PushNotifications(settings);
 const gcm = require('node-gcm');
 const apn = require('apn');
 
+/* no ios
 var apnProvider = new apn.Provider({
   token: {
     key: './apn.p8',
@@ -60,6 +61,8 @@ var apnProvider = new apn.Provider({
   },
   production: false
 });
+*/
+
 // Single destination
 //const registrationIds = 'INSERT_YOUR_DEVICE_ID';
 
@@ -73,8 +76,8 @@ function sendNotification(tokens, title, message) {
 
 console.log(config.APN_KEY_ID);
 console.log(config.IOS_TEAM_ID);
-var apnp = fs.readFileSync('./apn.p8', 'utf8')
-console.log(apnp);
+// var apnp = fs.readFileSync('./apn.p8', 'utf8')
+// console.log(apnp);
   var androidTokens = tokens.filter(token => token.version === "react-native" && token.platform === 'android');
   var iosTokens = tokens.filter(token => token.version === "react-native" && token.platform === 'ios');
   var ionicTokens = tokens.filter(token => token.version === "ionic");
@@ -149,6 +152,7 @@ console.log(apnp);
   if(iosTokens.length) {
     var deviceTokens = iosTokens.map(a => a.token);
     winston.debug(deviceTokens);
+    /*
     apnProvider.send(note, deviceTokens).then((result) => {
      // if (err) {
      //   winston.error(err);
@@ -156,6 +160,7 @@ console.log(apnp);
         winston.debug(result);
      // }
     });
+    */
   }
 
   if(ionicTokens.length) {
